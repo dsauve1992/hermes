@@ -1,4 +1,4 @@
-import UseCase from '../../base/usecase/UseCase';
+import UseCase from '../../../shared/base/usecase/UseCase';
 import UseCaseVerify from './UseCaseVerify';
 
 class UseCaseVerification {
@@ -6,6 +6,5 @@ class UseCaseVerification {
     return new UseCaseVerify(useCase);
   }
 }
-
 
 export default UseCaseVerification;

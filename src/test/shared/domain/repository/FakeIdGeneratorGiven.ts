@@ -1,4 +1,4 @@
-import ID from '../../../base/domain/valueObject/ID';
+import ID from '../../../../shared/base/domain/valueObject/ID';
 import FakeIdGenerator from './FakeIdGenerator';
 
 class FakeAccountNumberGeneratorGiven {

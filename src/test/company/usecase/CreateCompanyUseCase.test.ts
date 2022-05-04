@@ -1,13 +1,13 @@
-import CompanyRepository from '../../domain/repository/CompanyRepository';
-import FakeCompanyRepository from '../../infrastructure/repository/FakeCompanyRepository';
-import CreateCompanyUseCase from './CreateCompanyUseCase';
-import UseCaseVerification from '../../../shared/test/usecase/UseCaseVerification';
-import CompanyRepositoryVerification from '../../utils/test/repository/CompanyRepositoryVerification';
+import CompanyRepository from '../../../company/domain/repository/CompanyRepository';
+import FakeCompanyRepository from '../../../company/infrastructure/repository/FakeCompanyRepository';
+import CreateCompanyUseCase from '../../../company/usecases/createCompany/CreateCompanyUseCase';
+import UseCaseVerification from '../../shared/usecase/UseCaseVerification';
+import CompanyRepositoryVerification from '../../../company/utils/test/repository/CompanyRepositoryVerification';
 import ID from '../../../shared/base/domain/valueObject/ID';
 import IdGenerator from '../../../shared/base/domain/repository/IdGenerator';
-import FakeIdGenerator from '../../../shared/test/domain/repository/FakeIdGenerator';
-import givenThat from '../../../shared/test/domain/repository/FakeIdGeneratorGiven';
-import Name from '../../domain/valueObject/Name';
+import FakeIdGenerator from '../../shared/domain/repository/FakeIdGenerator';
+import givenThat from '../../shared/domain/repository/FakeIdGeneratorGiven';
+import Name from '../../../company/domain/valueObject/Name';
 
 let repository : CompanyRepository;
 let idGenerator : IdGenerator;
@@ -26,6 +26,7 @@ it('should create company given valid request', async () => {
   givenThat(idGenerator as FakeIdGenerator).willGenerate('12345');
 
   const name = Name.of(request.name);
+  const id = ID.of('12345');
 
   await UseCaseVerification
     .verifyThat(useCase)
@@ -34,7 +35,7 @@ it('should create company given valid request', async () => {
 
   await CompanyRepositoryVerification
     .verifyThat(repository)
-    .shouldContainCompanyWithName(ID.of('12345'), name);
+    .shouldContainCompanyWithName(id, name);
 });
 
 it('should throw exception given empty company name', async () => {

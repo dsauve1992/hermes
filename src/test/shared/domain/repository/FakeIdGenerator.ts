@@ -1,5 +1,5 @@
-import IdGenerator from '../../../base/domain/repository/IdGenerator';
-import ID from '../../../base/domain/valueObject/ID';
+import IdGenerator from '../../../../shared/base/domain/repository/IdGenerator';
+import ID from '../../../../shared/base/domain/valueObject/ID';
 
 class FakeIdGenerator implements IdGenerator {
   private values : ID[];

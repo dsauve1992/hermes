@@ -10,6 +10,10 @@ class Name {
   static of(value : string) : Name {
     return new Name(value);
   }
+
+  toString() : string {
+    return this.value;
+  }
 }
 
 export default Name;
