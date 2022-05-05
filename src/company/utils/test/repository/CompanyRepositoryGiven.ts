@@ -20,6 +20,16 @@ class CompanyRepositoryGiven {
 
     return Promise.resolve();
   }
+
+  async doesNotHaveCompany(company : Company) : Promise<void> {
+    const companyAlreadyExist = !!(await this.repository.find(company.getID()));
+
+    if (companyAlreadyExist) {
+      return this.repository.delete(company.getID());
+    }
+
+    return Promise.resolve();
+  }
 }
 
 export default CompanyRepositoryGiven;

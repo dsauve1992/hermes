@@ -9,7 +9,7 @@
     "start:prod": "npm run build && node ./dist/src/server.js",
     "build": "npx tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --config=jest.config.ts",
+    "test": "./node_modules/jest/bin/jest.js --config=jest.config.ts",
     "prepare": "husky install"
   },
   "author": "",

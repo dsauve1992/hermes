@@ -13,6 +13,12 @@ class CompanyRepositoryVerify {
 
     expect(company.getName()).toEqual(name);
   }
+
+  async shouldNotContainCompany(id: ID) {
+    const company = await this.repository.find(id);
+
+    expect(company).toBeUndefined();
+  }
 }
 
 export default CompanyRepositoryVerify;

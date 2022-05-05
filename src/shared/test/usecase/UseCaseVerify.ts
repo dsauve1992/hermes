@@ -1,4 +1,4 @@
-import UseCase from '../../../shared/base/usecase/UseCase';
+import UseCase from '../../base/usecase/UseCase';
 import UseCaseRequestVerify from './UseCaseRequestVerify';
 
 class UseCaseVerify<R, P> {

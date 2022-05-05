@@ -1,6 +1,6 @@
-import Company from '../../domain/entity/Company';
-import CompanyRepository from '../../domain/repository/CompanyRepository';
-import ID from '../../../shared/base/domain/valueObject/ID';
+import Company from '../../../domain/entity/Company';
+import CompanyRepository from '../../../domain/repository/CompanyRepository';
+import ID from '../../../../shared/base/domain/valueObject/ID';
 
 class FakeCompanyRepository implements CompanyRepository {
   private data : Map<string, Company>;
@@ -10,7 +10,7 @@ class FakeCompanyRepository implements CompanyRepository {
   }
 
   async find(id: ID): Promise<Company | undefined> {
-    return Promise.resolve(undefined);
+    return this.data.get(id.toString());
   }
 
   async findRequired(id: ID): Promise<Company | never> {
@@ -23,6 +23,10 @@ class FakeCompanyRepository implements CompanyRepository {
 
   async add(company: Company): Promise<void> {
     this.data.set(company.getID().toString(), company);
+  }
+
+  async delete(id: ID): Promise<void> {
+    this.data.delete(id.toString());
   }
 }
 
