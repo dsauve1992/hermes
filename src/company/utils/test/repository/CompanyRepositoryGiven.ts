@@ -1,35 +1,32 @@
-import Company from '../../../domain/entity/Company';
-import CompanyRepository from '../../../domain/repository/CompanyRepository';
+import Company from '../../../domain/entity/Company'
+import CompanyRepository from '../../../domain/repository/CompanyRepository'
 
 class CompanyRepositoryGiven {
-  private constructor(
-    private repository : CompanyRepository,
-  ) {
+  private constructor(private repository: CompanyRepository) {}
+
+  static givenThat(repository: CompanyRepository): CompanyRepositoryGiven {
+    return new CompanyRepositoryGiven(repository)
   }
 
-  static givenThat(repository : CompanyRepository) : CompanyRepositoryGiven {
-    return new CompanyRepositoryGiven(repository);
-  }
-
-  async alreadyHasCompany(company : Company) : Promise<void> {
-    const companyAlreadyExist = !!(await this.repository.find(company.getID()));
+  async alreadyHasCompany(company: Company): Promise<void> {
+    const companyAlreadyExist = !!(await this.repository.find(company.getID()))
 
     if (!companyAlreadyExist) {
-      return this.repository.add(company);
+      return this.repository.add(company)
     }
 
-    return Promise.resolve();
+    return Promise.resolve()
   }
 
-  async doesNotHaveCompany(company : Company) : Promise<void> {
-    const companyAlreadyExist = !!(await this.repository.find(company.getID()));
+  async doesNotHaveCompany(company: Company): Promise<void> {
+    const companyAlreadyExist = !!(await this.repository.find(company.getID()))
 
     if (companyAlreadyExist) {
-      return this.repository.delete(company.getID());
+      return this.repository.delete(company.getID())
     }
 
-    return Promise.resolve();
+    return Promise.resolve()
   }
 }
 
-export default CompanyRepositoryGiven;
+export default CompanyRepositoryGiven

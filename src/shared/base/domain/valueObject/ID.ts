@@ -1,17 +1,17 @@
 class ID {
-  private readonly value: string;
+  private readonly value: string
 
   private constructor(value: string) {
-    this.value = value;
+    this.value = value
   }
 
   public static of(value: string) {
-    return new ID(value);
+    return new ID(value)
   }
 
   toString(): string {
-    return this.value;
+    return this.value
   }
 }
 
-export default ID;
+export default ID

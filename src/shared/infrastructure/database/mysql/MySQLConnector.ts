@@ -1,9 +1,9 @@
-import { createPool, Pool } from 'mysql';
-import DATA_SOURCES from '../../../../../config/vars.config';
+import { createPool, Pool } from 'mysql'
+import DATA_SOURCES from '../../../../config/vars.config'
 
-const dataSource = DATA_SOURCES.mySqlDataSource;
+const dataSource = DATA_SOURCES.mySqlDataSource
 
-let pool: Pool;
+let pool: Pool
 
 export const init = () => {
   try {
@@ -13,37 +13,38 @@ export const init = () => {
       user: dataSource.DB_USER,
       password: dataSource.DB_PASSWORD,
       database: dataSource.DB_DATABASE,
-    });
+    })
 
-    console.debug('MySql Adapter Pool generated successfully');
+    console.debug('MySql Adapter Pool generated successfully')
   } catch (error) {
-    console.error('[mysql.connector][init][Error]: ', error);
-    throw new Error('failed to initialized pool');
+    console.error('[mysql.connector][init][Error]: ', error)
+    throw new Error('failed to initialized pool')
   }
-};
+}
 
-export const execute = <T>(query: string, params: string[] | Object): Promise<T> => {
+export const execute = <T>(query: string, params: string[] | unknown): Promise<T> => {
   try {
-    if (!pool) throw new Error('Pool was not created. Ensure pool is created when running the app.');
+    if (!pool) throw new Error('Pool was not created. Ensure pool is created when running the app.')
 
     return new Promise<T>((resolve, reject) => {
       pool.query(query, params, (error, results) => {
-        if (error) reject(error);
-        else resolve(results);
-      });
-    });
+        if (error) reject(error)
+        else resolve(results)
+      })
+    })
   } catch (error) {
-    console.error('[mysql.connector][execute][Error]: ', error);
-    throw new Error('failed to execute MySQL query');
+    console.error('[mysql.connector][execute][Error]: ', error)
+    throw new Error('failed to execute MySQL query')
   }
-};
+}
 
-export const end = (): Promise<void> => new Promise((resolve, reject) => {
-  pool.end((error) => {
-    if (error) {
-      reject(error);
-    }
+export const end = (): Promise<void> =>
+  new Promise((resolve, reject) => {
+    pool.end((error) => {
+      if (error) {
+        reject(error)
+      }
 
-    resolve();
-  });
-});
+      resolve()
+    })
+  })

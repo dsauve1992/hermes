@@ -1,7 +1,7 @@
-import ID from '../valueObject/ID';
+import ID from '../valueObject/ID'
 
 interface IdGenerator {
-  next() : ID
+  next(): ID
 }
 
-export default IdGenerator;
+export default IdGenerator

@@ -1,5 +1,5 @@
 type CreateCompanyUseCaseResponse = {
-  id: string;
+  id: string
 }
 
-export default CreateCompanyUseCaseResponse;
+export default CreateCompanyUseCaseResponse

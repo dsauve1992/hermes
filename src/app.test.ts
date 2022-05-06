@@ -1,3 +1,3 @@
 it('should be awesome', () => {
-  expect(true).toBe(true);
-});
+  expect(true).toBe(true)
+})

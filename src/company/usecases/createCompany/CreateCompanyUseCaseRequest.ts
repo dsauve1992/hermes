@@ -1,5 +1,5 @@
 type CreateCompanyUseCaseRequest = {
-  name : string;
+  name: string
 }
 
-export default CreateCompanyUseCaseRequest;
+export default CreateCompanyUseCaseRequest

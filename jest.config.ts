@@ -1,5 +1,5 @@
-import type { Config } from '@jest/types';
-import { defaults } from 'jest-config';
+import type { Config } from '@jest/types'
+import { defaults } from 'jest-config'
 
 const config: Config.InitialOptions = {
   verbose: true,
@@ -12,6 +12,6 @@ const config: Config.InitialOptions = {
   setupFiles: ['./src/test/testSetup.ts'],
   moduleDirectories: ['node_modules', 'src'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
-};
+}
 
-export default config;
+export default config

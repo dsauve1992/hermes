@@ -1,4 +1,4 @@
-import ID from '../valueObject/ID';
+import ID from '../valueObject/ID'
 
 interface Repository<T> {
   find(id: ID): Promise<T | undefined>
@@ -7,4 +7,4 @@ interface Repository<T> {
   delete(id: ID): Promise<void | never>
 }
 
-export default Repository;
+export default Repository
