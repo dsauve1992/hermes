@@ -9,7 +9,7 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
-  setupFiles: ['./src/test/testSetup.ts'],
+  setupFiles: ['./src/modules/shared/test/testSetup.ts'],
   moduleDirectories: ['node_modules', 'src'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 }

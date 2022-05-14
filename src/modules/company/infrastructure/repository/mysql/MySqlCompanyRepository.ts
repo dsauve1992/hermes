@@ -48,6 +48,18 @@ class MySqlCompanyRepository implements CompanyRepository {
   }
 
   private
+
+  async findAll(): Promise<Company[]> {
+    const queryStr = 'SELECT * FROM Company'
+
+    const results = await execute<{ id: string; name: string }[]>(queryStr, [])
+
+    if (results.length === 0) {
+      return []
+    }
+
+    return results.map((result) => Company.of(ID.of(result.id), Name.of(result.name)))
+  }
 }
 
 export default MySqlCompanyRepository

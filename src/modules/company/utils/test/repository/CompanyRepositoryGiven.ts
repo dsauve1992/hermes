@@ -8,7 +8,7 @@ class CompanyRepositoryGiven {
     return new CompanyRepositoryGiven(repository)
   }
 
-  async alreadyHasCompany(company: Company): Promise<void> {
+  async hasCompany(company: Company): Promise<void> {
     const companyAlreadyExist = !!(await this.repository.find(company.getID()))
 
     if (!companyAlreadyExist) {

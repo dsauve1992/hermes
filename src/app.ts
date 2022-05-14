@@ -9,12 +9,15 @@ import passport from 'passport'
 import logger from 'morgan'
 import connectSqlite3 from 'connect-sqlite3'
 
-import authRouter from './modules/user/auth/router/auth.router'
+import authRouter from './modules/user/auth/router/authRouter'
+import companyRouter from './modules/company/router/companyRouter'
+import * as MySQLConnector from './modules/shared/infrastructure/database/mysql/MySQLConnector'
 
 const app = express()
 const port = process.env.EXPRESS_PORT || 3000
 
 const SQLiteStore = connectSqlite3(session)
+MySQLConnector.init()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -49,6 +52,7 @@ app.use(function (req, res, next) {
 })
 
 app.use('/', authRouter)
+app.use('/company', companyRouter)
 
 app.get('/', (req, res) => {
   req.user ? res.render('index', { user: req.user }) : res.render('home')

@@ -28,6 +28,10 @@ class FakeCompanyRepository implements CompanyRepository {
   async delete(id: ID): Promise<void> {
     this.data.delete(id.toString())
   }
+
+  async findAll(): Promise<Company[]> {
+    return Array.from(this.data.values())
+  }
 }
 
 export default FakeCompanyRepository

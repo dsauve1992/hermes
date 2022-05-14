@@ -21,7 +21,7 @@ beforeAll(() => {
 
 describe('adding company', () => {
   it('should throw an error given existing company', async () => {
-    await CompanyRepositoryGiven.givenThat(repository).alreadyHasCompany(A_COMPANY)
+    await CompanyRepositoryGiven.givenThat(repository).hasCompany(A_COMPANY)
 
     await expect(repository.add(A_COMPANY)).rejects.toThrow(`Company with ID ${AN_ID} already exist`)
   })
@@ -43,7 +43,7 @@ describe('find company', () => {
   })
 
   it('should return company when exist in database', async () => {
-    await CompanyRepositoryGiven.givenThat(repository).alreadyHasCompany(A_COMPANY)
+    await CompanyRepositoryGiven.givenThat(repository).hasCompany(A_COMPANY)
 
     expect(await repository.find(A_COMPANY.getID())).toEqual(A_COMPANY)
   })
@@ -57,7 +57,7 @@ describe('find required company', () => {
   })
 
   it('should return company when exist in database', async () => {
-    await CompanyRepositoryGiven.givenThat(repository).alreadyHasCompany(A_COMPANY)
+    await CompanyRepositoryGiven.givenThat(repository).hasCompany(A_COMPANY)
 
     expect(await repository.findRequired(A_COMPANY.getID())).toEqual(A_COMPANY)
   })
@@ -71,7 +71,7 @@ describe('delete company', () => {
   })
 
   it('should delete company from database when exist', async () => {
-    await CompanyRepositoryGiven.givenThat(repository).alreadyHasCompany(A_COMPANY)
+    await CompanyRepositoryGiven.givenThat(repository).hasCompany(A_COMPANY)
 
     await repository.delete(A_COMPANY.getID())
 
