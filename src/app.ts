@@ -1,5 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
+import 'reflect-metadata'
 import createError from 'http-errors'
 import path from 'path'
 import cookieParser from 'cookie-parser'
@@ -11,13 +12,20 @@ import connectSqlite3 from 'connect-sqlite3'
 
 import authRouter from './modules/user/auth/router/authRouter'
 import companyRouter from './modules/company/router/companyRouter'
-import * as MySQLConnector from './modules/shared/infrastructure/database/mysql/MySQLConnector'
+import AppDataSource from './modules/shared/infrastructure/database/mysql/MySQLConnector'
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!')
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization:', err)
+  })
 
 const app = express()
 const port = process.env.EXPRESS_PORT || 3000
 
 const SQLiteStore = connectSqlite3(session)
-MySQLConnector.init()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

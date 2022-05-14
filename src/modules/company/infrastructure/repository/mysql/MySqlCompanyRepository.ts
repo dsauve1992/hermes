@@ -1,30 +1,38 @@
 import ID from '../../../../shared/base/domain/valueObject/ID'
-import { execute } from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
+import AppDataSource from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
 import Company from '../../../domain/entity/Company'
 import CompanyRepository from '../../../domain/repository/CompanyRepository'
 import Name from '../../../domain/valueObject/Name'
+import { Company as CompanyOrm } from '../model/Company.orm-entity'
+import { Repository } from 'typeorm'
 
 class MySqlCompanyRepository implements CompanyRepository {
-  async add(company: Company): Promise<void> {
-    const queryStr = 'INSERT INTO Company (id, name) VALUES (?, ?);'
+  private repository: Repository<CompanyOrm>
 
+  constructor() {
+    this.repository = AppDataSource.getRepository(CompanyOrm)
+  }
+
+  async add(company: Company): Promise<void> {
     if (await this.find(company.getID())) {
       throw new Error(`Company with ID ${company.getID()} already exist`)
     }
 
-    await execute(queryStr, [company.getID().toString(), company.getName().toString()])
+    const ormEntity = new CompanyOrm()
+    ormEntity.id = company.getID().toString()
+    ormEntity.name = company.getName().toString()
+
+    await this.repository.save(ormEntity)
   }
 
   async find(id: ID): Promise<Company | undefined> {
-    const queryStr = 'SELECT * FROM Company WHERE id = ?'
+    const company = await this.repository.findOneBy({ id: id.toString() })
 
-    const result = await execute<{ id: string; name: string }[]>(queryStr, [id.toString()])
-
-    if (result.length === 0) {
+    if (!company) {
       return undefined
     }
 
-    return Company.of(ID.of(result[0].id), Name.of(result[0].name))
+    return Company.of(ID.of(company.id), Name.of(company.name))
   }
 
   async findRequired(id: ID): Promise<Company> {
@@ -38,27 +46,18 @@ class MySqlCompanyRepository implements CompanyRepository {
   }
 
   async delete(id: ID): Promise<void> {
-    const queryStr = 'DELETE FROM Company where id = ?;'
-
     if (await this.find(id)) {
-      return execute(queryStr, [id.toString()])
+      await this.repository.delete(id.toString())
+      return
     }
 
     throw new Error(`Unable to delete company with id ${id}`)
   }
 
-  private
-
   async findAll(): Promise<Company[]> {
-    const queryStr = 'SELECT * FROM Company'
+    const data = await this.repository.find()
 
-    const results = await execute<{ id: string; name: string }[]>(queryStr, [])
-
-    if (results.length === 0) {
-      return []
-    }
-
-    return results.map((result) => Company.of(ID.of(result.id), Name.of(result.name)))
+    return data.map((result) => Company.of(ID.of(result.id), Name.of(result.name)))
   }
 }
 

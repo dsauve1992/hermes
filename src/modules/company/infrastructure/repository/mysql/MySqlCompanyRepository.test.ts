@@ -1,10 +1,10 @@
 import MySqlCompanyRepository from './MySqlCompanyRepository'
-import * as MySQLConnector from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
 import CompanyRepositoryGiven from '../../../utils/test/repository/CompanyRepositoryGiven'
 import Company from '../../../domain/entity/Company'
 import ID from '../../../../shared/base/domain/valueObject/ID'
 import Name from '../../../domain/valueObject/Name'
 import CompanyRepositoryVerification from '../../../utils/test/repository/CompanyRepositoryVerification'
+import AppDataSource from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
 
 let repository: MySqlCompanyRepository
 
@@ -13,9 +13,8 @@ const A_NAME = Name.of('My Company')
 
 const A_COMPANY = Company.of(AN_ID, A_NAME)
 
-beforeAll(() => {
-  MySQLConnector.init()
-
+beforeAll(async () => {
+  await AppDataSource.initialize()
   repository = new MySqlCompanyRepository()
 })
 
@@ -78,5 +77,3 @@ describe('delete company', () => {
     await CompanyRepositoryVerification.verifyThat(repository).shouldNotContainCompany(AN_ID)
   })
 })
-
-afterAll(MySQLConnector.end)

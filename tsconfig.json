@@ -7,7 +7,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["jest"]
+    "types": ["jest"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["src/**/*", "src/config/**/*"],
   "exclude": ["node_modules"],

@@ -29,7 +29,7 @@ passport.serializeUser(function (user, cb) {
 
 passport.deserializeUser(function (user, cb) {
   process.nextTick(function () {
-    return cb(null, user as any)
+    return cb(null, user as never)
   })
 })
 
@@ -45,7 +45,7 @@ router.get(
   })
 )
 
-router.post('/logout', function (req, res, next) {
+router.post('/logout', function (req, res) {
   req.logout()
   const params = {
     client_id: process.env['AUTH0_CLIENT_ID'],

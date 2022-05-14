@@ -1,50 +1,19 @@
-import { createPool, Pool } from 'mysql'
 import DATA_SOURCES from '../../../../../config/vars.config'
+import { DataSource } from 'typeorm'
+import { Company } from '../../../../company/infrastructure/repository/model/Company.orm-entity'
 
 const dataSource = DATA_SOURCES.mySqlDataSource
 
-let pool: Pool
+const AppDataSource = new DataSource({
+  type: 'mysql',
+  host: dataSource.DB_HOST,
+  port: dataSource.DB_PORT,
+  username: dataSource.DB_USER,
+  password: dataSource.DB_PASSWORD,
+  database: dataSource.DB_DATABASE,
+  entities: [Company],
+  synchronize: true,
+  logging: false,
+})
 
-export const init = () => {
-  try {
-    pool = createPool({
-      connectionLimit: dataSource.DB_CONNECTION_LIMIT,
-      host: dataSource.DB_HOST,
-      user: dataSource.DB_USER,
-      password: dataSource.DB_PASSWORD,
-      database: dataSource.DB_DATABASE,
-    })
-
-    console.debug('MySql Adapter Pool generated successfully')
-  } catch (error) {
-    console.error('[mysql.connector][init][Error]: ', error)
-    throw new Error('failed to initialized pool')
-  }
-}
-
-export const execute = <T>(query: string, params: string[] | unknown): Promise<T> => {
-  try {
-    if (!pool) throw new Error('Pool was not created. Ensure pool is created when running the app.')
-
-    return new Promise<T>((resolve, reject) => {
-      pool.query(query, params, (error, results) => {
-        if (error) reject(error)
-        else resolve(results)
-      })
-    })
-  } catch (error) {
-    console.error('[mysql.connector][execute][Error]: ', error)
-    throw new Error('failed to execute MySQL query')
-  }
-}
-
-export const end = (): Promise<void> =>
-  new Promise((resolve, reject) => {
-    pool.end((error) => {
-      if (error) {
-        reject(error)
-      }
-
-      resolve()
-    })
-  })
+export default AppDataSource
