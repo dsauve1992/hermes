@@ -10,7 +10,7 @@ companyRouter.get('/', async function (req, res) {
 
   const response: ListCompanyUseCaseResponse = await useCase.execute()
 
-  res.render('company-list', response)
+  res.send(response)
 })
 
 export default companyRouter

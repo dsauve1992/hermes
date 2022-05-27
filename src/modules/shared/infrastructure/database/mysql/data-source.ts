@@ -12,6 +12,7 @@ const AppDataSource = new DataSource({
   password: dataSource.DB_PASSWORD,
   database: dataSource.DB_DATABASE,
   entities: [Company],
+  migrations: ['./migrations/**.ts'],
   synchronize: true,
   logging: false,
 })

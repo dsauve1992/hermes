@@ -1,5 +1,5 @@
 import ID from '../../../../shared/base/domain/valueObject/ID'
-import AppDataSource from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
+import AppDataSource from '../../../../shared/infrastructure/database/mysql/data-source'
 import Company from '../../../domain/entity/Company'
 import CompanyRepository from '../../../domain/repository/CompanyRepository'
 import Name from '../../../domain/valueObject/Name'

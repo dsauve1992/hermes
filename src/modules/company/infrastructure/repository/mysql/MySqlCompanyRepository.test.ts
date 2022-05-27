@@ -4,7 +4,7 @@ import Company from '../../../domain/entity/Company'
 import ID from '../../../../shared/base/domain/valueObject/ID'
 import Name from '../../../domain/valueObject/Name'
 import CompanyRepositoryVerification from '../../../utils/test/repository/CompanyRepositoryVerification'
-import AppDataSource from '../../../../shared/infrastructure/database/mysql/MySQLConnector'
+import AppDataSource from '../../../../shared/infrastructure/database/mysql/data-source'
 
 let repository: MySqlCompanyRepository
 
