@@ -8,7 +8,7 @@ export class ListCompanyUseCase implements UseCase<ListCompanyUseCaseRequest, Li
   constructor(private repository: CompanyRepository) {}
 
   async execute(): Promise<ListCompanyUseCaseResponse> {
-    const companies: Company[] = await this.repository.findAll()
+    const companies: Company[] = await this.repository.getAll()
 
     const companyResponses = companies.map((company) => ({
       id: company.getID().toString(),

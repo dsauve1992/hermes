@@ -48,17 +48,17 @@ describe('find company', () => {
   })
 })
 
-describe('find required company', () => {
+describe('get company', () => {
   it('should throw an error when company does not exist in database', async () => {
     await CompanyRepositoryGiven.givenThat(repository).doesNotHaveCompany(A_COMPANY)
 
-    await expect(repository.findRequired(A_COMPANY.getID())).rejects.toThrow(`Unable to find company with id ${AN_ID}`)
+    await expect(repository.get(A_COMPANY.getID())).rejects.toThrow(`Unable to get company with id ${AN_ID}`)
   })
 
   it('should return company when exist in database', async () => {
     await CompanyRepositoryGiven.givenThat(repository).hasCompany(A_COMPANY)
 
-    expect(await repository.findRequired(A_COMPANY.getID())).toEqual(A_COMPANY)
+    expect(await repository.get(A_COMPANY.getID())).toEqual(A_COMPANY)
   })
 })
 

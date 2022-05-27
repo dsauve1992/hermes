@@ -1,6 +1,6 @@
 import DATA_SOURCES from '../../../../../config/vars.config'
 import { DataSource } from 'typeorm'
-import { Company } from '../../../../company/infrastructure/repository/model/Company.orm-entity'
+import { Company } from '../../../../company/infrastructure/repository/mysql/Company.orm-entity'
 
 const dataSource = DATA_SOURCES.mySqlDataSource
 

@@ -13,7 +13,7 @@ class FakeCompanyRepository implements CompanyRepository {
     return this.data.get(id.toString())
   }
 
-  async findRequired(id: ID): Promise<Company | never> {
+  async get(id: ID): Promise<Company | never> {
     if (this.data.has(id.toString())) {
       return this.data.get(id.toString())
     }
@@ -29,7 +29,7 @@ class FakeCompanyRepository implements CompanyRepository {
     this.data.delete(id.toString())
   }
 
-  async findAll(): Promise<Company[]> {
+  async getAll(): Promise<Company[]> {
     return Array.from(this.data.values())
   }
 }

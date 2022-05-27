@@ -6,7 +6,7 @@ class CompanyRepositoryVerify {
   constructor(private repository: CompanyRepository) {}
 
   async shouldContainCompanyWithName(id: ID, name: Name) {
-    const company = await this.repository.findRequired(id)
+    const company = await this.repository.get(id)
 
     expect(company.getName()).toEqual(name)
   }

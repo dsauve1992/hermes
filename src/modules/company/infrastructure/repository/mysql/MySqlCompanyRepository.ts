@@ -3,7 +3,7 @@ import AppDataSource from '../../../../shared/infrastructure/database/mysql/data
 import Company from '../../../domain/entity/Company'
 import CompanyRepository from '../../../domain/repository/CompanyRepository'
 import Name from '../../../domain/valueObject/Name'
-import { Company as CompanyOrm } from '../model/Company.orm-entity'
+import { Company as CompanyOrm } from './Company.orm-entity'
 import { Repository } from 'typeorm'
 
 class MySqlCompanyRepository implements CompanyRepository {
@@ -35,7 +35,7 @@ class MySqlCompanyRepository implements CompanyRepository {
     return Company.of(ID.of(company.id), Name.of(company.name))
   }
 
-  async findRequired(id: ID): Promise<Company> {
+  async get(id: ID): Promise<Company> {
     const company: Company | undefined = await this.find(id)
 
     if (!company) {
@@ -54,7 +54,7 @@ class MySqlCompanyRepository implements CompanyRepository {
     throw new Error(`Unable to delete company with id ${id}`)
   }
 
-  async findAll(): Promise<Company[]> {
+  async getAll(): Promise<Company[]> {
     const data = await this.repository.find()
 
     return data.map((result) => Company.of(ID.of(result.id), Name.of(result.name)))
